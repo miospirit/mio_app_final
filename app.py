@@ -12,6 +12,99 @@ from typing import Optional
 APP_TITLE = "澪 -Mio-｜脳科学×数秘術で導く“幸せの方程式”"
 import streamlit as st
 import os
+from PIL import Image  # 画像の鮮明表示に使う（既にあればOK）
+
+# 🔐 Secrets から LINE のURLを取得
+LINE_URL = st.secrets["LINE_URL"]
+
+# 🌸 “澪” テーマ（明朝体＋金文字＋パステル背景＋モバイル最適化）
+st.markdown("""
+<style>
+:root{
+  --mio-gold:#caa24a;
+  --mio-gold-dark:#b08b34;
+}
+
+html, body, [data-testid="stAppViewContainer"]{
+  background: linear-gradient(145deg,#f8dcea 0%, #f0eaff 40%, #e2f6f0 100%) !important;
+}
+
+/* コンテンツ幅＆余白（スマホ最適） */
+.main .block-container{
+  max-width: 720px;
+  padding: 1.25rem 1rem 3rem;
+  margin: auto;
+}
+
+/* 明朝体ベース */
+html, body, .stMarkdown, .stText, .stSelectbox, .stDateInput, .stRadio, .stButton button{
+  font-family: "Yu Mincho","Hiragino Mincho ProN","HGS明朝E","MS PMincho",serif !important;
+  letter-spacing: .02em;
+}
+
+/* 見出し（澪の金色） */
+h1, h2, h3{
+  color: var(--mio-gold) !important;
+  font-weight: 800 !important;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff8, 0 2px 6px #b38f2b33;
+}
+
+/* 小見出しの装飾（◆アイコン） */
+h4.mio-sec::before{
+  content:"✦";
+  color: var(--mio-gold);
+  margin-right:.4rem;
+}
+
+/* 入力UIの見やすさ */
+.stSelectbox div[data-baseweb="select"]>div,
+.stDateInput, .stRadio{
+  background:#ffffffcc !important;
+  border:1px solid #e9e4d6 !important;
+  border-radius:12px !important;
+}
+
+/* ボタン（LINEボタン含む） */
+.stButton>button, .stLinkButton>button{
+  width:100%;
+  border-radius:12px !important;
+  padding:.9rem 1.1rem !important;
+  font-weight:700 !important;
+  border:1px solid var(--mio-gold-dark) !important;
+  color:#fff !important;
+  background: linear-gradient(180deg, var(--mio-gold) 0%, #d7b55b 100%) !important;
+  box-shadow: 0 8px 18px #e4d29a77;
+}
+.stButton>button:hover, .stLinkButton>button:hover{
+  filter:saturate(1.05) brightness(1.03);
+}
+
+/* 画像の“ボケ”を抑える（横幅固定＋高DPI向け最適化） */
+[data-testid="stImage"] img{
+  width: min(88vw, 420px) !important;   /* スマホは画面幅、PCは最大420px */
+  max-width: 420px !important;
+  height:auto !important;
+  image-rendering: -webkit-optimize-contrast;
+  -ms-interpolation-mode: bicubic;
+  border-radius:16px;
+  border: 1px solid #e9e4d6;
+  box-shadow: 0 10px 24px #bfae7a33;
+}
+
+/* キャプション等の読みやすさ */
+small, .mio-note{
+  color:#6b665a;
+  font-size:.9rem;
+}
+
+/* モバイル細かい調整 */
+@media (max-width: 420px){
+  h1{ font-size:1.7rem; line-height:1.35; }
+  h2{ font-size:1.2rem; }
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ✅ Secrets対応のLINE_URL設定（Streamlit Cloud用）
 LINE_URL = st.secrets.get("LINE_URL", os.environ.get("LINE_URL", "https://example.com"))
