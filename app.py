@@ -52,11 +52,15 @@ st.markdown(
     f"<h2 style='text-align:center; color:#b58f5a;'>"
     f"{APP_TITLE}</h2>", unsafe_allow_html=True
 )
-st.caption("“運命は、偶然じゃなく構造でできている。”<br>3分でわかる、あなたの幸福な数字。", unsafe_allow_html=True)
+st.caption(
+    "“運命は、偶然じゃなく構造でできている。”<br>"
+    "3分でわかる、あなたの幸福な数字。",
+    unsafe_allow_html=True
+)
 
 # ===== 入力フォーム =====
 with st.form("mio_form"):
-    birthday = st.date_input("生年月日", min_value=dt(1890,1,1), max_value=dt.today())
+    birthday = st.date_input("生年月日", min_value=dt(1890, 1, 1), max_value=dt.today())
     悩み = st.selectbox("今の悩み", ["恋愛", "仕事", "人間関係", "お金", "健康"])
     性別 = st.radio("性別", ["女性", "男性", "その他"])
     agree = st.checkbox("この診断は一度のみであることに同意します")
@@ -78,9 +82,9 @@ def calc_result(birthday, 性別, 悩み):
         "ヘマタイト", "スモーキークォーツ", "カーネリアン", "ペリドット", "クリスタル",
         "モリオン", "ラブラドライト"
     ]
-    return {"カード": tarot_list[num-1], "守護石": stone_list[num-1]}
+    return {"カード": tarot_list[num - 1], "守護石": stone_list[num - 1]}
 
-# ===== 結果表示＋LINE誘導 =====
+# ===== 結果表示（ポップアップなし） =====
 if submitted and agree:
     result = calc_result(birthday, 性別, 悩み)
     st.markdown(
@@ -91,44 +95,23 @@ if submitted and agree:
         unsafe_allow_html=True
     )
 
-    # ---- LINEポップアップ ----
-    import time
-    if "mio_line_popup_shown" not in st.session_state:
-        st.session_state.mio_line_popup_shown = False
-
-    def show_line_popup():
-        with st.container():
-            st.markdown(f"""
-            <div style='position:fixed; inset:0; background:rgba(0,0,0,.4); 
-            display:flex; align-items:center; justify-content:center; z-index:9999;'>
-              <div style='background:#fff9f1; border-radius:16px; padding:24px; width:90%; 
-              max-width:480px; box-shadow:0 0 24px rgba(0,0,0,.15); text-align:center;'>
-                <h3 style='color:#caa24a;'>LINEで守護石リストを受け取る</h3>
-                <p style='color:#666;'>あなた専用の開運アドバイスを無料で送ります。</p>
-                <a href='{LINE_URL}' target='_blank'
-                style='display:inline-block; background:#06C755; color:white; padding:10px 20px; 
-                border-radius:8px; text-decoration:none;'>LINEで受け取る</a><br><br>
-                <button onclick="window.parent.postMessage('close_mio_popup','*')"
-                style='padding:8px 16px; background:#fff; border:1px solid #ccc; 
-                border-radius:8px;'>閉じる</button>
-              </div>
-            </div>
-            <script>
-              window.addEventListener('message', (e) => {{
-                if(e.data==='close_mio_popup'){{
-                  const popup=document.querySelector('div[style*="position:fixed"]');
-                  if(popup) popup.remove();
-                }}
-              }});
-            </script>
-            """, unsafe_allow_html=True)
-
-    if not st.session_state.mio_line_popup_shown:
-        time.sleep(0.3)
-        show_line_popup()
-        st.session_state.mio_line_popup_shown = True
+    # ---- メッセージ＋LINEボタン表示 ----
+    st.markdown(
+        f"""
+        <div style='text-align:center; margin-top:24px;'>
+            <p style='color:#6b665a;'>
+            無料であなた専用の守護石リストをお送りします。<br>
+            LINEで「診断」と送ってください。
+            </p>
+            <a href='{LINE_URL}' target='_blank'
+            style='display:inline-block; background:#06C755; color:white; 
+            padding:10px 24px; border-radius:8px; text-decoration:none;'>
+            🌿 公式LINEで受け取る
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 elif submitted and not agree:
     st.warning("同意チェックを入れてください。")
-
-
