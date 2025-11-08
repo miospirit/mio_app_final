@@ -328,9 +328,10 @@ if submitted:
     )
 
     st.markdown(
-        "<div style='text-align:center; font-size:13px; margin-top:25px; color:#555;'>"
-        "※ この診断は一度のみとなります。詳細の深掘り・追加鑑定はLINEでご案内しています。"
-        "</div>",
-        unsafe_allow_html=True
-    )
+    "<div style='text-align:center; font-size:13px; margin-top:25px; color:#555;'>"
+    "※ この診断は一度のみとなります。詳細の深掘り・追加鑑定はLINEでご案内しています。<br>"
+    "※ LINEが開かない場合は、右上の三本線をタップして「ブラウザで開く」を押すと開けます。"
+    "</div>",
+    unsafe_allow_html=True
+)
 
