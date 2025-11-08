@@ -347,37 +347,37 @@ with st.form("mio_form", clear_on_submit=False):
         result = calc_result(birthday, 性別, 悩み)
         st.write("あなたの幸福数は…", result)
 
-    # ===== LINEポップアップここから =====
-    import time
-    if "mio_line_popup_shown" not in st.session_state:
-        st.session_state.mio_line_popup_shown = False
+     # ===== LINEポップアップここから =====
+     import time
+     if "mio_line_popup_shown" not in st.session_state:
+         st.session_state.mio_line_popup_shown = False
 
-    def show_line_popup():
-        with st.container():
-            st.markdown(f"""
-            <div style='position:fixed; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; z-index:9999;'>
-              <div style='background:#fff9f1; border-radius:16px; padding:24px; width:90%; max-width:480px; box-shadow:0 0 24px rgba(0,0,0,.1); text-align:center;'>
-                <h3 style='color:#caa24a; margin-bottom:8px;'>公式LINEで「守護石リスト」を受け取る</h3>
-                <p style='color:#6b665a; font-size:.9rem; margin-bottom:16px;'>診断に基づくパワーストーン候補を個別にお送りします。</p>
-                <a href='{LINE_URL}' target='_blank' style='display:inline-block; background:#06C755; color:white; padding:10px 20px; border-radius:8px; text-decoration:none;'>LINEで受け取る</a><br><br>
-                <button onclick="window.parent.postMessage('close_mio_popup','*')" style='margin-top:8px; padding:8px 16px; background:#fff; border:1px solid #ddd; border-radius:8px;'>閉じる</button>
-              </div>
-            </div>
-            <script>
-              window.addEventListener('message', (e)=>{
-                if(e.data==='close_mio_popup'){
-                  const popup=document.querySelector('div[style*="position:fixed"]');
-                  if(popup) popup.remove();
-                }
-              });
-            </script>
-            """, unsafe_allow_html=True)
+     def show_line_popup():
+         with st.container():
+             st.markdown(f"""
+             <div style='position:fixed; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; z-index:9999;'>
+               <div style='background:#fff9f1; border-radius:16px; padding:24px; width:90%; max-width:480px; box-shadow:0 0 24px rgba(0,0,0,.1); text-align:center;'>
+                 <h3 style='color:#caa24a; margin-bottom:8px;'>公式LINEで「守護石リスト」を受け取る</h3>
+                 <p style='color:#6b665a; font-size:.9rem; margin-bottom:16px;'>診断に基づくパワーストーン候補を個別にお送りします。</p>
+                 <a href='{LINE_URL}' target='_blank' style='display:inline-block; background:#06C755; color:white; padding:10px 20px; border-radius:8px; text-decoration:none;'>LINEで受け取る</a><br><br>
+                 <button onclick="window.parent.postMessage('close_mio_popup','*')" style='margin-top:8px; padding:8px 16px; background:#fff; border:1px solid #ddd; border-radius:8px;'>閉じる</button>
+               </div>
+             </div>
+             <script>
+               window.addEventListener('message', (e)=>{
+                 if(e.data==='close_mio_popup'){
+                   const popup=document.querySelector('div[style*="position:fixed"]');
+                   if(popup) popup.remove();
+                 }
+               });
+             </script>
+             """, unsafe_allow_html=True)
 
-    if not st.session_state.mio_line_popup_shown:
-        time.sleep(0.2)
-        show_line_popup()
-        st.session_state.mio_line_popup_shown = True
-    # ===== LINEポップアップここまで =====
+     if not st.session_state.mio_line_popup_shown:
+         time.sleep(0.2)
+         show_line_popup()
+         st.session_state.mio_line_popup_shown = True
+     # ===== LINEポップアップここまで =====
 
 
 # ===== 診断処理 =====
