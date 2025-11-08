@@ -343,7 +343,7 @@ with st.form("mio_form", clear_on_submit=False):
 
     agree = st.checkbox("この診断は一度のみであることに同意します")
     submitted = st.form_submit_button("🔮 幸福数字を診断する")
-    if st.button("幸福数を診断する"):
+if st.button("幸福数を診断する"):
     result = calc_result(birthday, 性別, 悩み)
     st.write("あなたの幸福数は…", result)
 
