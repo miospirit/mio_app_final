@@ -13,7 +13,7 @@ APP_TITLE = "澪 -Mio-｜脳科学×数秘術で導く“幸せの方程式”"
 import os
 
 # ✅ Secrets対応のLINE_URL設定（Streamlit Cloud用）
-LINE_URL = st.secrets.get("LINE_URL", os.environ.get("LINE_URL", "https://lin.ee/f3iQlQY"))
+LINE_URL = st.secrets.get("LINE_URL", os.environ.get("LINE_URL", "https://liff.line.me/1645278921-kWRPP32q/?accountId=697obqdd"))
 
 LOCK_DAYS = 7
 ASSETS_DIR = "assets/tarot"
